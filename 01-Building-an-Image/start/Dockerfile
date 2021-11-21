@@ -31,3 +31,14 @@ CMD ["npm", "run","start"]
 # General form docker build -t <name of image> .
 # After built, type docker images to see if the image is there. TAG means the versions of the images.
 # If we delete this image and then rebuild it without changing the dockerfile or the code file, it is a lot quicker because every layer/step is already stored by Docker. I.e., it Caches it.
+# Running a container -> docker run <image name>
+# To know what containers are running? -> docker ps
+# To remove the docker container docker rm <image name>
+# You can detach the container from the terminal using -d flag -> docker run -d express-app
+# Can also give the container a name -> docker run --name <name of container> <name of image>
+# Two ways to stop a container -> docker stop <container name or id> or docker kill <container-name of id>
+# docker stops just has an extra clean up process compared to docker kill
+# docker start <container name or id>
+# The app is running on port 3333 but if you go to it, it won't be there because it is running inside of the container
+# Therefore, we need to map the containers port to our computers port
+# docker run -d --name express-container -p 3333:3333 express-app (first port is our machine, second port is container's port)
