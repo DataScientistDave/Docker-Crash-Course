@@ -1,0 +1,38 @@
+# Easier way to run mulit-container projects
+# Less error prone then building the image and running a container with volumes and ports
+
+# Version of docker compose -> need to look up 
+version: '3.3'
+services: 
+  # Just name of the service
+  nba-client:
+    # How to build the image
+    build:
+      # Where the docker file is and the name of the dockerfile
+      context: ./client
+      dockerfile: Dockerfile
+    # Name of the container. Kind of like docker run -it --name react-container react-app
+    container_name: client-dc
+    # Port mapping
+    ports:
+      - 3000:3000
+    # Volumes
+    volumes:
+      - './client:/usr/app'
+      - '/usr/app/node_modules'
+    # This is important react
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  nba-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server-dc
+    ports:
+      - 5000:5000
+    volumes:
+      - './server:/usr/app'
+      - '/usr/app/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
